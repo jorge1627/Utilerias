@@ -8,7 +8,3 @@ const toast = msg => {
     bootToast.show();
   }
 }
-
-function name(params) {
-  let hole=""
-}
