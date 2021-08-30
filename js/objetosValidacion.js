@@ -99,19 +99,10 @@ const inconsistencia_soporte = {
 
 const inconsistencia_detalle_accion = {
   1: "Ninguno",
-  2: (datos) => {
-    let detalle = `Se realizó la supervisión en MAC y reunión de trabajo con funcionarios, donde se les instruyó de acuerdo con lo establecido en:
+  2: `Se realizó la supervisión en MAC y reunión de trabajo con funcionarios, donde se les instruyó de acuerdo con lo establecido en:
             A) Instrucciones de Trabajo para la Operación del Módulo de Atención Ciudadana. Tomo I. Punto 1. Captura del trámite. 1.4 Imágenes. 1.4.2 Captura Huellas.  
-            B) Consideraciones: punto 4.2. `;
-    for (const d in datos) {
-        if(datos[d]>1){
-            detalle +=`Se encontraron ${datos[d]} huellas con clave ${d} “${inconsistencia_huellas[d].descripcion}”.\n `
-        }else{
-            detalle +=`Se encontro 1 huella con clave ${d} “${inconsistencia_huellas[d].descripcion}”.\n `
-        }      
-    }
-    return detalle;
-  },
+            B) Consideraciones: punto 4.2. 
+            C) Casos especiales para la captura de las Huellas`,
   3: "Cédula de supervisión a MAC y Minuta.",
   4: "Minuta de reunión, Oficio INE/JDE03/VRFE/1722/2021 e informe de hechos del funcionario.",
 };
@@ -128,3 +119,72 @@ const huellas = [
   "ANULAR D",
   "MEÑIQUE D",
 ];
+
+const mano_derecha = [  
+  "PULGAR D",
+  "INDICE D",
+  "MEDIO D",
+  "ANULAR D",
+  "MEÑIQUE D",
+];
+
+const mano_izquierda = [
+  "PULGAR I",
+  "INDICE I",
+  "MEDIO I",
+  "ANULAR I",
+  "MEÑIQUE I",
+]
+
+
+
+
+
+///Auxiliares de requerimientos--------------------------------------------------------------------------
+//2: (datos) => {
+//  let detalle = `Se realizó la supervisión en MAC y reunión de trabajo con funcionarios, donde se les instruyó de acuerdo con lo establecido en:
+//          A) Instrucciones de Trabajo para la Operación del Módulo de Atención Ciudadana. Tomo I. Punto 1. Captura del trámite. 1.4 Imágenes. 1.4.2 Captura Huellas.  
+//          B) Consideraciones: punto 4.2. `;
+//  for (const d in datos) {
+//      if(datos[d]>1){
+//          detalle +=`Se encontraron ${datos[d]} huellas con clave ${d} “${inconsistencia_huellas[d].descripcion}”.\n `
+//      }else{
+//          detalle +=`Se encontro 1 huella con clave ${d} “${inconsistencia_huellas[d].descripcion}”.\n `
+//      }      
+//  }
+//  return detalle;
+
+
+
+
+
+//<div class="row table-responsive">
+//<table class="table table-bordered table-condensed">
+//  <thead>
+//    <tr>    
+//      <th>MAC</th>
+//      <th>GRUPO</th>
+//      <th>FOLIO SOLICITUD</th>
+//      <th>PULGAR I</th>
+//      <th>INDICE I</th>
+//      <th>MEDIO I</th>
+//      <th>ANULAR I</th>
+//      <th>MEÑIQUE I</th>
+//      <th>PULGAR D</th>
+//      <th>INDICE D</th>
+//      <th>MEDIO D</th>
+//      <th>ANULAR D</th>
+//      <th>MEÑIQUE D</th>
+//      <th>MI</th>
+//      <th>DF</th>
+//      <th>CD</th>
+//      <th>FOTOGRAFÍA</th>
+//      <th>FECHA REVISIÓN</th>
+//      <th>FUNCIONARIO QUE REGISthA LA SOLICITUD INDIVIDUAL</th>
+//      <th>FUNCIONARIO QUE DIGITALIZA MEDIOS DE IDENTIFICACION</th>
+//    </tr>
+//  </thead>
+//  <tbody>
+//  </tbody>
+//</table>
+//</div>

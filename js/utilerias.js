@@ -8,3 +8,10 @@ const toast = msg => {
     bootToast.show();
   }
 }
+
+document.querySelector('.nav-link').onclick = () => {
+  alert(target);
+};
+
+
+
