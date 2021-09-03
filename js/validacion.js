@@ -88,6 +88,29 @@ function saveAsExcelFile(buffer, fileName) {
   link.click();
 }
 
+
+function json_to_excelConcentrado(concentrado,grupo) {
+  let HojaC = XLSX.utils.json_to_sheet(concentrado);
+  let HojaG = XLSX.utils.json_to_sheet(grupo);
+  let workbook = {
+    Sheets: { Concentrado: HojaC, Grupo: HojaG  },
+    SheetNames: ["Concentrado", "Grupo"],
+  };
+  let excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+  console.log(workbook);
+  saveAsExcelFile(excelBuffer, "Concentrado");
+}
+
+function saveAsExcelFile(buffer, fileName) {
+  let blob = new Blob([buffer], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8",
+  });
+  let link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = fileName;
+  link.click();
+}
+
 function asignar_niveles_accion(datos) {
   datos.map((solicitud) => {
     let _nivel_acciones = [];
@@ -237,6 +260,8 @@ function asignar_niveles_accion(datos) {
       </tr>`;
     }
     tbodyConcentrado.innerHTML = tr;
+
+    json_to_excelConcentrado(iEncontrada,[grupos]);
 
   }
 
