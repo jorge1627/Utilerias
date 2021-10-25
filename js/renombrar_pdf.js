@@ -1,5 +1,15 @@
-async function gettext(){
-  var data = await arrayPDF(pdfFiles.files[0]);
+btnValidacion.onclick = () =>{
+  window.location = 'validacion.html';
+};
+
+btnValidacionMensual.onclick = () =>{
+  window.location = 'validacionMensual.html';
+};
+
+btnpdf.disabled = true;
+
+async function gettext(file){
+  var data = await arrayPDF(file);
   var pdf = pdfjsLib.getDocument({data})
   return pdf.promise.then(function(pdf) { // get all pages text
     var maxPages = pdf._pdfInfo.numPages;
@@ -10,28 +20,9 @@ async function gettext(){
       var txt = "";
       countPromises.push(page.then(function(page) { // add page promise
         var textContent = page.getTextContent();
-
-        var viewport = page.getViewport( {scale: 1.5} );
-
-        //We'll create a canvas for each page to draw it on
-        var canvas = document.createElement( "canvas" );
-        canvas.style.display = "block";
-        var context = canvas.getContext('2d');
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
-        
-        var renderContext = {
-          canvasContext: context,
-          viewport: viewport
-        };
-        var renderTask = page.render(renderContext);
-           
-
-
         return textContent.then(function(text){ // return content promise
-         console.log(text.items.map(function (s) { return s.str; }).join('')); // value page text 
+         return obtener_nombre_solicitud(text.items.map(function (s) { return s.str; }).join('')); // value page text
         });
-
 
       }));
     }
@@ -42,17 +33,51 @@ async function gettext(){
   });
 }
 
-
-
 function arrayPDF(file) {
   return new Promise((resolve,reject) => {
     var fileR =  new FileReader();
     fileR.onload = function() {
-      var typedarray = new Uint8Array(this.result);                  
-       resolve(typedarray); 
+      var typedarray = new Uint8Array(this.result);
+       resolve(typedarray);
   };
   //Step 3:Read the file as ArrayBuffer
   fileR.readAsArrayBuffer(file);
   });
-  
+
 }
+
+const pdf_zip = () => {
+  let zip = new JSZip();
+  let files = Array.from(pdfFiles.files);
+  Promise.all(
+  files.map( async (e) => {
+    let nombre = await gettext(e); 
+    zip.file(`${nombre}.pdf`, e);
+  })).then(() => {
+    zip.generateAsync({type:"blob"}).then(function (blob) { // 1) generate the zip file
+      saveAs(blob, "Cédulas individuales.zip");                          // 2) trigger the download
+  }, function (err) {
+      toast(err)
+  });
+  });  
+};
+
+
+const obtener_nombre_solicitud = (text) => {
+  let indice1 = text.indexOf("FECHA DE REVISIÓN") + 17;
+  let text1 = text.substring(indice1);
+  let indice2 = text1.indexOf(" ");
+  let nombre = text1.substring(0, indice2);
+  return nombre;
+};
+
+btnRenombrar.onclick = () =>{
+  if (!pdfFiles.files.length) {
+    toast(
+      "Seleccione al menos un archivo pdf para renombrar"
+    );
+    pdfFiles.focus();
+    return false;
+  }
+  pdf_zip();
+};

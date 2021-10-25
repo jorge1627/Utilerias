@@ -1,3 +1,13 @@
+btnValidacion.onclick = () =>{
+  window.location = 'validacion.html';
+};
+btnValidacionMensual.disabled = true;
+
+btnpdf.onclick = () =>{
+  window.location = 'pdf.html';
+};
+
+
 btnValidar.onclick = async () => {
   if (!excelFile.value) {
     toast(
@@ -75,7 +85,7 @@ function json_to_excel(data_json) {
   };
   let excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
   console.log(workbook);
-  saveAsExcelFile(excelBuffer, "ejemplo");
+  saveAsExcelFile(excelBuffer, "fm_resultado");
 }
 
 function saveAsExcelFile(buffer, fileName) {
@@ -158,8 +168,8 @@ function asignar_niveles_accion(datos) {
     }
     solicitud["NIVEL DE ACCIÓN SEGÚN LA INCIDENCIA (1 AL 4)"] =
       _nivel_acciones.toString();
-    solicitud["nivel_2_huellas"] = acciones2;
-    solicitud["nivel_4_huellas"] = acciones4;
+    // solicitud["nivel_2_huellas"] = acciones2;
+    // solicitud["nivel_4_huellas"] = acciones4;
     let ultimo_nivelAccion = _nivel_acciones.reverse()[0];
     solicitud["OBSERVACIONES(SEÑALAR EL SOPORTE DOCUMENTAL)"] = "";
     _nivel_acciones.map((accion) =>{
@@ -171,8 +181,7 @@ function asignar_niveles_accion(datos) {
     if( [5,6].includes(dia)){
       solicitud['FECHA MINUTA'] = formatoFecha(fechaRevision);
     }else{
-     
-      let fecha = new Date(fechaRevision);
+           let fecha = new Date(fechaRevision);
       while (dia < 5) {
         fecha.setDate(fecha.getDate() + 1);
         dia = fecha.getDay();
@@ -180,7 +189,7 @@ function asignar_niveles_accion(datos) {
       solicitud['FECHA MINUTA'] = formatoFecha(fecha);
     }
     
-    solicitud["Acción"] = inconsistencia_detalle_accion[ultimo_nivelAccion];
+    // solicitud["Acción"] = inconsistencia_detalle_accion[ultimo_nivelAccion];
   });
 }
 

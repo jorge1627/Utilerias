@@ -1,3 +1,13 @@
+btnValidacion.disabled = true;
+
+btnValidacionMensual.onclick = () =>{
+  window.location = 'validacionMensual.html';
+};
+
+btnpdf.onclick = () =>{
+  window.location = 'pdf.html';
+};
+
 btnValidar.onclick = async () => {
   if (!excelFile.value) {
     toast(
