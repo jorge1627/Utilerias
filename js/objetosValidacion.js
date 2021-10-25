@@ -94,7 +94,7 @@ const inconsistencia_soporte = {
     1:"Ninguno",
     2:"Cédula de supervisión a MAC y Minuta.",
     3:"Lista de asistencia y guía de observación.",
-    4:"Minuta de reunión, Oficio INE/JDE03/VRFE/1722/2021 e informe de hechos del funcionario."
+    4:"Oficio personalizado e informe de hechos."
 }
 
 const inconsistencia_detalle_accion = {
@@ -134,8 +134,10 @@ const mano_izquierda = [
   "MEDIO I",
   "ANULAR I",
   "MEÑIQUE I",
-]
+];
 
+
+const documentos = ["MI", "DF", "CD"];
 
 
 
